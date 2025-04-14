@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/booktracker
+    username: root
+    password: 454529
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+server:
+  port: 8080
