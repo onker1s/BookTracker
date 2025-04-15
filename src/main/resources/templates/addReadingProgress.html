@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Добавить книгу в библиотеку</h2>
+
+<form method="post" th:action="@{/library/add}" th:object="${form}">
+    <p th:if="${error}" th:text="${error}" style="color:red;"></p>
+    <label>Книга:
+        <select name="bookId">
+            <option th:each="b : ${books}" th:value="${b.id}" th:text="${b.title}" />
+        </select>
+    </label><br/>
+
+    <label>Страница: <input type="number" name="currentPage" th:value="*{currentPage}" /></label><br/>
+
+    <label>Статус:
+        <select name="status">
+            <option th:each="s : ${T(booktracker.domain.Status).values()}"
+                    th:value="${s}" th:text="${s}" />
+        </select>
+    </label><br/>
+
+    <button type="submit">Добавить</button>
+</form>
+
+</body>
+</html>

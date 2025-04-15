@@ -11,15 +11,15 @@ import java.util.ArrayList;
 @Data
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
+@NoArgsConstructor(access=AccessLevel.PUBLIC, force=true)
 public class Book {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private final String title;
+    private String title;
 
-    private final String author;
+    private String author;
 
     @Column(length = 1000)
     private String description;

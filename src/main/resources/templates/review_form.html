@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить отзыв</title>
+</head>
+<body>
+<h1>Добавить отзыв</h1>
+
+<form method="post" th:action="@{/review/add}" th:object="${review}">
+    <label for="book">Выберите книгу:</label>
+    <select id="book" th:field="*{book.id}" required>
+        <option th:each="book : ${userBooks}"
+                th:value="${book.id}"
+                th:text="${book.title}">
+        </option>
+    </select>
+
+
+    <br><br>
+    <label for="rating">Оценка:</label>
+    <select id="rating" th:field="*{rating}" required>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+
+    <br><br>
+    <label for="comment">Отзыв:</label><br>
+    <textarea id="comment" th:field="*{comment}" rows="5" cols="40" required></textarea>
+
+    <br><br>
+    <button type="submit">Сохранить</button>
+</form>
+
+</body>
+</html>

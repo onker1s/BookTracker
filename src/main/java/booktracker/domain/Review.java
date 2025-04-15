@@ -1,27 +1,24 @@
 package booktracker.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import java.time.LocalDate;
 
 @Data
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor(access= AccessLevel.PRIVATE, force=true)
+@NoArgsConstructor(access = AccessLevel.PUBLIC, force=true)
 public class Review {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Setter
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id")
-    private final User user;
-
+    private User user;
+    @Setter
     @ManyToOne(optional = false)
     @JoinColumn(name = "book_id")
-    private final Book book;
+    private Book book;
 
     @Column(nullable = false)
     private int rating;

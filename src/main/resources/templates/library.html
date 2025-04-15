@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Мои книги</h2>
+
+<table>
+    <tr>
+        <th>Название</th>
+        <th>Прогресс</th>
+        <th>Статус</th>
+        <th>Действия</th>
+    </tr>
+    <tr th:each="p : ${progresses}">
+        <td th:text="${p.book.title}">Название</td>
+        <td th:text="${p.currentPage + '/' + p.book.totalPages}">0/300</td>
+        <td th:text="${p.status}">READING</td>
+        <td>
+            <form th:action="@{/library/update/{id}(id=${p.id})}" method="post">
+                <label>
+                    <input type="number" name="page" th:value="${p.currentPage}" />
+                </label>
+                <label>
+                    <select name="status">
+                        <option th:each="s : ${statuses}"
+                                th:value="${s}"
+                                th:text="${s}"
+                                th:selected="${s == p.status}">
+                        </option>
+
+                    </select>
+                </label>
+                <button type="submit">Обновить</button>
+            </form>
+            <form th:action="@{/library/delete/{id}(id=${p.id})}" method="post">
+                <button type="submit">Удалить</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<a th:href="@{/library/add}">Добавить книгу</a>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить книгу</title>
+</head>
+<body>
+<h2>Добавить новую книгу</h2>
+
+<form th:action="@{/plib/add}" method="post" th:object="${book}">
+    <label>Название: <input type="text" th:field="*{title}" required /></label><br/>
+    <label>Автор: <input type="text" th:field="*{author}" required /></label><br/>
+    <label>Описание: <textarea th:field="*{description}"></textarea></label><br/>
+    <label>Всего страниц: <input type="number" th:field="*{totalPages}" required min="1" /></label><br/>
+    <button type="submit">Добавить</button>
+</form>
+
+<p th:if="${error}" th:text="${error}" style="color:red"></p>
+<a th:href="@{/}">назад</a>
+</body>
+</html>
