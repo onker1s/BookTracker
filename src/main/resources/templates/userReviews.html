@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Мои отзывы</title>
+    <meta charset="UTF-8"/>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .review-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .review-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .review-card h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+
+        .review-card p {
+            color: #555;
+        }
+
+        .review-card .author {
+            font-size: 0.9em;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        a.button {
+            display: inline-block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        a.button:hover {
+            background-color: #45a049;
+        }
+
+    </style>
+</head>
+<body>
+
+<h1>Отзывы пользователей</h1>
+
+<div class="review-container">
+    <div class="review-card" th:each="review : ${userReviews}">
+        <h3 th:text="${review.book.title}">Название книги</h3>
+        <p th:text="${review.comment}" style="word-wrap: break-word; white-space: pre-wrap;">Текст отзыва</p>
+
+        <p>
+            <strong>Оценка:</strong>
+            <span th:each="i : ${#numbers.sequence(1, review.rating)}">⭐</span>
+            <span th:if="${review.rating < 5}"
+                  th:each="i : ${#numbers.sequence(review.rating + 1, 5)}">☆</span>
+        </p>
+
+        <div class="author" th:text="'Автор: ' + ${review.user.username}">Автор: user</div>
+
+        <div style="margin-top: 10px;">
+            <a th:href="@{'/review/edit/' + ${review.id}}" class="button" style="background-color: #2196F3;">Изменить</a>
+            <a th:href="@{'/review/delete/' + ${review.id}}" class="button" style="background-color: #f44336;"
+               onclick="return confirm('Вы уверены, что хотите удалить отзыв?');">Удалить</a>
+        </div>
+    </div>
+</div>
+
+
+<div style="text-align:center">
+    <a class="button" th:href="@{/}">На главную</a>
+</div>
+
+</body>
+</html>

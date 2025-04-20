@@ -30,7 +30,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/library/**", "/plib/**", "/review/**").hasRole("USER")
+                        .requestMatchers("/library/**", "/plib/**", "/review/**","/account").hasRole("USER")
                         .anyRequest().permitAll()  // Все остальные запросы разрешены
                 )
                 .formLogin(form -> form

@@ -2,21 +2,122 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>BookTrack</title>
+    <meta charset="UTF-8">
+    <title>BookTrack - Регистрация</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .register-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .register-container img {
+            width: 80px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            text-align: left;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .login-link {
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+
+        .login-link a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: red;
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 <body>
-<h1>Register</h1>
-<img th:src="@{/images/Book.png}"/>
-<form method="POST" th:action="@{/register}" id="registerForm">
-    <label for="username">Username: </label>
-    <input type="text" name="username"/><br/>
-    <label for="email">Email: </label>
-    <input type="text" name="email"/><br/>
-    <label for="password">Password: </label>
-    <input type="password" name="password"/><br/>
-    <label for="confirm">Confirm password: </label>
-    <input type="password" name="confirm"/><br/>
-    <input type="submit" value="Register"/>
-</form>
+
+<div class="register-container">
+    <img th:src="@{/images/Book.png}" alt="BookTrack Logo"/>
+    <h1>Регистрация</h1>
+
+    <div class="error-message" th:if="${error}" th:text="${error}"></div>
+
+    <form method="POST" th:action="@{/register}" id="registerForm">
+        <label for="username">Имя пользователя:</label>
+        <input type="text" name="username" id="username" required/>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required/>
+
+        <label for="password">Пароль:</label>
+        <input type="password" name="password" id="password" required/>
+
+        <label for="confirm">Подтверждение пароля:</label>
+        <input type="password" name="confirm" id="confirm" required/>
+
+        <input type="submit" value="Зарегистрироваться"/>
+    </form>
+
+    <div class="login-link">
+        Уже есть аккаунт? <a th:href="@{/login}">Войти</a>
+    </div>
+</div>
+
 </body>
 </html>

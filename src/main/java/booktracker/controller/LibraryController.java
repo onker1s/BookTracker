@@ -43,7 +43,6 @@ public class LibraryController {
         model.addAttribute("form", new ReadingProgressForm());
         return "addReadingProgress";
     }
-
     @PostMapping("/add")
     public String addProgress(@ModelAttribute ReadingProgressForm form,
                               Principal principal,

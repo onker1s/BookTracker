@@ -1,6 +1,7 @@
 package booktracker.controller;
 
 import booktracker.domain.Book;
+import booktracker.domain.Review;
 import booktracker.domain.Status;
 import booktracker.domain.User;
 import booktracker.service.BookService;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/plib")
@@ -17,6 +19,13 @@ import java.security.Principal;
 public class BookController {
 
     private final BookService bookService;
+
+    @GetMapping
+    public String showBooks(Model model) {
+        List<Book> books = bookService.findAll();
+        model.addAttribute("allBooks", books);
+        return "books";
+    }
 
     @GetMapping("/add")
     public String showAddForm(Model model) {

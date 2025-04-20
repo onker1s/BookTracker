@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Отзывы пользователей</title>
+    <meta charset="UTF-8"/>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .book-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .book-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .book-card h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+
+        .book-card p {
+            color: #555;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .book-card .author {
+            font-size: 0.9em;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        a.button {
+            display: inline-block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        a.button:hover {
+            background-color: #45a049;
+        }
+
+    </style>
+</head>
+<body>
+
+<h1>Все книги</h1>
+
+<div class="book-container">
+    <div class="book-card" th:each="book : ${allBooks}">
+        <h3 th:text="${book.title}">Название книги</h3>
+        <p th:text="${book.description}">Текст описания</p>
+        <div class="author" th:text="'Автор: ' + ${book.author}">Автор: user</div>
+    </div>
+</div>
+
+<div style="text-align:center">
+    <a class="button" th:href="@{/}">На главную</a>
+</div>
+
+</body>
+</html>

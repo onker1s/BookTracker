@@ -2,15 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>BookTrack - Главная</title>
+    <title>BookTrack - Личный кабинет</title>
     <meta charset="UTF-8"/>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f9f9f9;
+            text-align: center;
             padding: 40px;
             margin: 0;
-            text-align: center;
         }
 
         h1 {
@@ -31,7 +31,7 @@
             margin-top: 30px;
         }
 
-        a button {
+        a button, input[type="submit"] {
             padding: 12px 24px;
             font-size: 16px;
             background-color: #4CAF50;
@@ -42,23 +42,31 @@
             transition: background-color 0.3s ease;
         }
 
-        a button:hover {
+        a button:hover,
+        input[type="submit"]:hover {
             background-color: #45a049;
+        }
+
+        form {
+            margin-top: 30px;
         }
     </style>
 </head>
 
 <body>
 
-<h1>Добро пожаловать в <span style="color:#4CAF50">BookTrack</span>!</h1>
+<h1>Личный кабинет</h1>
 <img th:src="@{/images/Book.png}" alt="BookTrack Logo"/>
 
 <div class="button-container">
-    <a th:href="@{/account}"><button>Личный кабинет</button></a>
-    <a th:href="@{/plib}"><button>Все книги</button></a>
-    <a th:href="@{/plib/add}"><button>Добавить книгу на сайт</button></a>
-    <a th:href="@{/review}"><button>Отзывы</button></a>
+    <a th:href="@{/review/get}"><button>Мои отзывы</button></a>
+    <a th:href="@{/library}"><button>Мои книги</button></a>
+    <a th:href="@{/library/add}"><button>Начать читать</button></a>
 </div>
+
+<form method="POST" th:action="@{/logout}" id="logoutForm">
+    <input type="submit" value="Выйти из аккаунта"/>
+</form>
 
 </body>
 </html>

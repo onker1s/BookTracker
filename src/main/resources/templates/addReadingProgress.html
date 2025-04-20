@@ -1,31 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>BookTrack - Добавить в библиотеку</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .library-form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            font-weight: bold;
+        }
+
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-<h2>Добавить книгу в библиотеку</h2>
 
-<form method="post" th:action="@{/library/add}" th:object="${form}">
-    <p th:if="${error}" th:text="${error}" style="color:red;"></p>
-    <label>Книга:
-        <select name="bookId">
-            <option th:each="b : ${books}" th:value="${b.id}" th:text="${b.title}" />
+<div class="library-form-container">
+    <h2>Добавить книгу в библиотеку</h2>
+
+    <form method="post" th:action="@{/library/add}" th:object="${form}">
+        <p class="error-message" th:if="${error}" th:text="${error}"></p>
+
+        <label for="bookId">Книга:</label>
+        <select id="bookId" name="bookId">
+            <option th:each="b : ${books}" th:value="${b.id}" th:text="${b.title}"></option>
         </select>
-    </label><br/>
 
-    <label>Страница: <input type="number" name="currentPage" th:value="*{currentPage}" /></label><br/>
+        <label for="currentPage">Страница:</label>
+        <input type="number" id="currentPage" name="currentPage" th:value="*{currentPage}" />
 
-    <label>Статус:
-        <select name="status">
+        <label for="status">Статус:</label>
+        <select id="status" name="status">
             <option th:each="s : ${T(booktracker.domain.Status).values()}"
-                    th:value="${s}" th:text="${s}" />
+                    th:value="${s}" th:text="${s}"></option>
         </select>
-    </label><br/>
 
-    <button type="submit">Добавить</button>
-</form>
+        <button type="submit">Добавить</button>
+    </form>
+
+    <a th:href="@{/}" class="back-link">← Назад</a>
+</div>
 
 </body>
 </html>

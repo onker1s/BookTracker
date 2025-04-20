@@ -32,6 +32,21 @@ public class ReviewController {
         this.userService = userService;
         this.bookService = bookService;
     }
+
+    @GetMapping
+    public String showReviews(Model model, Principal principal) {
+        List<Review> reviews = reviewService.findAll();
+        model.addAttribute("allReviews", reviews);
+        return "reviews";
+    }
+
+    @GetMapping("/get")
+    public String showUserReviews(Model model, Principal principal) {
+        List<Review> reviews = reviewService.findAllByUsername(principal.getName());
+        model.addAttribute("userReviews", reviews);
+        return "userReviews";
+    }
+
     @GetMapping("/add")
     public String showReviewForm(Model model, Principal principal) {
         List<Book> userBooks = readingProgressService.getUserBooks(principal.getName());
@@ -51,6 +66,25 @@ public class ReviewController {
         review.setCreatedAt(LocalDate.now());
         reviewService.save(review);
         return "redirect:/user/reviews";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Review review = reviewService.findById(id);
+        model.addAttribute("review", review);
+        return "editReview"; // thymeleaf-шаблон для редактирования
+    }
+
+    @PostMapping("/edit/{id}")
+    public String updateReview(@PathVariable Long id, @ModelAttribute Review review) {
+        reviewService.updateReview(id, review);
+        return "redirect:/review/get";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteReview(@PathVariable Long id) {
+        reviewService.deleteById(id);
+        return "redirect:/review/get";
     }
 
 }

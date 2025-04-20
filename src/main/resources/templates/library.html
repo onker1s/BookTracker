@@ -1,10 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>BookTrack - Мои книги</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 30px;
+            margin: 0;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        td form {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        input[type="number"],
+        select {
+            padding: 6px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-right: 5px;
+        }
+
+        button {
+            padding: 6px 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .add-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+            text-decoration: none;
+            color: #4CAF50;
+        }
+
+        .add-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
+
 <h2>Мои книги</h2>
 
 <table>
@@ -20,28 +95,23 @@
         <td th:text="${p.status}">READING</td>
         <td>
             <form th:action="@{/library/update/{id}(id=${p.id})}" method="post">
-                <label>
-                    <input type="number" name="page" th:value="${p.currentPage}" />
-                </label>
-                <label>
-                    <select name="status">
-                        <option th:each="s : ${statuses}"
-                                th:value="${s}"
-                                th:text="${s}"
-                                th:selected="${s == p.status}">
-                        </option>
-
-                    </select>
-                </label>
+                <input type="number" name="page" th:value="${p.currentPage}" />
+                <select name="status">
+                    <option th:each="s : ${statuses}"
+                            th:value="${s}"
+                            th:text="${s}"
+                            th:selected="${s == p.status}"></option>
+                </select>
                 <button type="submit">Обновить</button>
             </form>
             <form th:action="@{/library/delete/{id}(id=${p.id})}" method="post">
-                <button type="submit">Удалить</button>
+                <button type="submit" style="background-color: #e53935;">Удалить</button>
             </form>
         </td>
     </tr>
 </table>
 
-<a th:href="@{/library/add}">Добавить книгу</a>
+<a th:href="@{/library/add}" class="add-link">+ Добавить книгу</a>
+
 </body>
 </html>
