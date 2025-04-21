@@ -26,6 +26,8 @@ public class Book {
 
     private int totalPages;
 
+    private String publisher;
+
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReadingProgress> progressList = new ArrayList<>();
 

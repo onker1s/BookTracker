@@ -1,9 +1,6 @@
 package booktracker.service;
 
-import booktracker.data.BookRepository;
 import booktracker.data.ReviewRepository;
-import booktracker.data.UserRepository;
-import booktracker.domain.Book;
 import booktracker.domain.Review;
 import booktracker.domain.User;
 import lombok.RequiredArgsConstructor;

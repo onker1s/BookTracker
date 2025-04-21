@@ -3,10 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <title>Добавить отзыв</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background-color: #f9f9f9;
+        }
 
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
+<div class="form-container">
 <h1>Добавить отзыв</h1>
 
 <form method="post" th:action="@{/review/add}" th:object="${review}">
@@ -31,11 +79,11 @@
 
     <br><br>
     <label for="comment">Отзыв:</label><br>
-    <textarea id="comment" th:field="*{comment}" rows="5" cols="40" required></textarea>
+    <textarea id="comment" th:field="*{comment}" rows="5" required></textarea>
 
     <br><br>
     <button type="submit">Сохранить</button>
 </form>
-
+</div>
 </body>
 </html>

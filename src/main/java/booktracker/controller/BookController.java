@@ -1,9 +1,6 @@
 package booktracker.controller;
 
 import booktracker.domain.Book;
-import booktracker.domain.Review;
-import booktracker.domain.Status;
-import booktracker.domain.User;
 import booktracker.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -27,20 +24,46 @@ public class BookController {
         return "books";
     }
 
+    @GetMapping("/get")
+    public String showUserBooks(Model model, Principal principal) {
+        List<Book> books = bookService.findAllForUser(principal.getName());
+        model.addAttribute("userBooks", books);
+        return "userBooks";
+    }
+
     @GetMapping("/add")
     public String showAddForm(Model model) {
-        model.addAttribute("book", new Book(null, "", "", "", 0, null, null));
+        model.addAttribute("book", new Book(null, "", "", "",
+                0, "",  null, null));
         return "addBook";
     }
 
     @PostMapping("/add")
-    public String handleAddBook(@ModelAttribute Book book, Model model) {
+    public String handleAddBook(@ModelAttribute Book book, Model model, Principal principal) {
         if (bookService.bookExists(book)) {
             model.addAttribute("error", "Такая книга уже существует");
             return "addBook";
         }
-        System.out.println(book.toString());
+        book.setPublisher(principal.getName());
         bookService.save(book);
         return "redirect:/plib";
+    }
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Book book = bookService.findById(id);
+        model.addAttribute("book", book);
+        return "editBook"; // thymeleaf-шаблон для редактирования
+    }
+
+    @PostMapping("/edit/{id}")
+    public String updateBook(@PathVariable Long id, @ModelAttribute Book book) {
+        bookService.updateBook(id, book);
+        return "redirect:/plib/get";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteReview(@PathVariable Long id) {
+        bookService.deleteById(id);
+        return "redirect:/plib/get";
     }
 }

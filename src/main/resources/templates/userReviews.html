@@ -64,7 +64,7 @@
 </head>
 <body>
 
-<h1>Отзывы пользователей</h1>
+<h1>Мои отзывы</h1>
 
 <div class="review-container">
     <div class="review-card" th:each="review : ${userReviews}">
@@ -91,6 +91,7 @@
 
 <div style="text-align:center">
     <a class="button" th:href="@{/}">На главную</a>
+    <a class="button" th:href="@{/review/add}">Добавить отзыв</a>
 </div>
 
 </body>

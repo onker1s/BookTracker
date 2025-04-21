@@ -2,12 +2,10 @@ package booktracker.controller;
 
 import booktracker.domain.Book;
 import booktracker.domain.Review;
-import booktracker.domain.User;
 import booktracker.service.BookService;
 import booktracker.service.ReadingProgressService;
 import booktracker.service.ReviewService;
 import booktracker.service.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -65,7 +63,7 @@ public class ReviewController {
         review.setUser(userService.findByUsername(principal.getName()));
         review.setCreatedAt(LocalDate.now());
         reviewService.save(review);
-        return "redirect:/user/reviews";
+        return "redirect:/review/get";
     }
 
     @GetMapping("/edit/{id}")

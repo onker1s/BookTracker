@@ -2,7 +2,6 @@ package booktracker.service;
 
 import booktracker.data.BookRepository;
 import booktracker.domain.Book;
-import booktracker.domain.Review;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +28,23 @@ public class BookService {
         List<Book> books = new ArrayList<>();
         bookRepository.findAll().forEach(books::add);
         return books;
+    }
+    public List<Book> findAllForUser(String username) {
+        List<Book> books = new ArrayList<>();
+        bookRepository.findAllByPublisher(username).forEach(e -> books.add((Book) e));
+        return books;
+    }
+    public void updateBook(Long id, Book updated) {
+        Book existing = findById(id);
+        existing.setTitle(updated.getTitle());
+        existing.setDescription(updated.getDescription());
+        existing.setAuthor(updated.getAuthor());
+        existing.setTotalPages(updated.getTotalPages());
+        bookRepository.save(existing);
+    }
+
+    public void deleteById(Long id) {
+        bookRepository.deleteById(id);
     }
 }
 
